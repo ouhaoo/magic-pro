@@ -1,0 +1,39 @@
+{
+	"manifest_version": 2,
+	"name": "学妹魔法书",
+	"version": "2.0",
+  "description": "学妹蹲号互助互抢群：254617135",
+	"author": "xuemei",
+	"icons": {
+    "16": "images/icon.png",
+    "48": "images/icon.png",
+    "128": "images/icon.png"
+  },
+	"content_scripts":[
+		{
+			"matches": ["<all_urls>"],
+			"js":["js/content-script.js", "js/jquery-3.5.1.min.js"],
+			"css": ["css/custom.css"],
+			"run_at": "document_start"
+		}
+	],
+	"permissions":
+	[
+		"contextMenus",
+		"tabs",
+		"notifications",
+		"webRequest",
+		"webRequestBlocking",
+		"storage",
+		"http://*/*",
+		"https://*/*"
+	],
+	"web_accessible_resources": [
+		"js/inject.js",
+		"js/geetest.js",
+		"js/gt.js",
+		"httprequest/httprequest.js",
+		"static/slide.7.7.1.js"
+	],
+	"devtools_page": "devtools.html"
+}

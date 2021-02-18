@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>magic</title>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta http-equiv="content-type" content="text/html;charset=utf-8">
+	<link rel="stylesheet" href="css/custom.css">
+	<script type="text/javascript" src="httprequest/httprequest.js"></script>
+	<script type="text/javascript" src="js/jquery-3.5.1.min.js"></script>
+	<script type="text/javascript" src="js/mypanel.js"></script>
+	<style>
+		.btn {
+				display: none;
+				padding: 0 10px;
+				border: 1px solid gray;
+				height: 30px;
+				font-size: 18px;
+				cursor: pointer;
+		}
+		#embed-captcha {
+				width: 300px;
+				margin: 0 auto;
+		}
+		.show {
+				display: block;
+				height: 30px;
+		}
+		.hide {
+				display: none;
+		}
+		.geetest_form {
+				width: 500px;
+				margin: 20px auto;
+		}
+		.geetest_form p {
+				text-align: center;
+				font-size: 12px;
+		}
+		footer {
+				margin-bottom: 18px;
+		}
+		footer span {
+				font-size: 0.8rem;
+		}
+	</style>
+</head>
+<body>
+	<div class="top">
+		<p class="top-title">学妹魔法书pro</p>
+	</div>
+	<div class="content">
+		<div class="content-loading">
+			<p>获取数据中...请检查是否登陆万宝楼...</p>
+			<p>若长时间没获取到数据，请刷新页面重试~</p>
+		</div>
+		<div class="content-other">
+			<p>暂无魔法书权限...</p>
+			<p>请查看插件ID并填写在群公告~</p>
+			<p>若未开通魔法书权限，请联系群主购买~</p>
+		</div>
+		<button class="content-info-refer">刷新</button>
+		<button class="content-info-start">开始抢号</button>
+		<div class="content-opt">
+			<div class="left-content">
+				<form>
+					商品编号：<input type="text" class="content-id">
+				</form>
+				<form>
+					分离费：
+					<input class="free" type="radio" name="free" value="9000" checked><span>90</span>
+					<input class="free" type="radio" name="free" value="18000"><span>180</span>
+				</form>
+				<form>
+					抢号模式：
+					<input class="spe" type="radio" name="spe" value="0"><span>🔥🔥🔥</span>
+					<input class="spe" type="radio" name="spe" value="100"><span>🔥🔥</span>
+					<input class="spe" type="radio" name="spe" value="300"><span>🔥</span>
+					<input class="spe" type="radio" name="spe" value="600"><span>⚖️</span>
+					<input class="spe" type="radio" name="spe" value="900" checked><span>稳定</span>
+				</form>
+				<textarea type="text" class="yzm" placeholder="验证码参数"></textarea>
+			</div>
+			<div class="right-content">
+				<div class="time">倒计时</div>
+				<div class="zfb"></div>
+				<div class="error"></div>
+			</div>
+		</div>
+	</div>
+	<div class="bottom">
+		<p class="bottom-desc">剑网三账号交流群：254617135</p>
+	</div>
+</body>
+</html>
