@@ -1,5 +1,8 @@
-// 区服列表
-let zoneList = []
+var zoneList = [] // 区服列表
+// 展示详情(state-3:公示中;5:在售中)
+let errorMsg = '' // 错误信息
+let times = 0; // 下单次数
+let logMsg = ''; // 日志
 
 // 获取随机字符串
 const getXMReqId = number => {
@@ -12,10 +15,13 @@ const getXMReqId = number => {
   return str;
 }
 
+// 清楚空格换行
+function CTim (str) { 
+  return str.replace(/\s/g,'');
+}
+
 // 页面刚一进入时
 document.addEventListener('DOMContentLoaded', function() {
-  $('.content-opt').hide()
-  $('.content-info-refer').click(handleRefer)
   $('.content-info-start').click(handleGet)
   // 拉取区服id配置
   httpRequest(function(status, respText, isSuccess) {
@@ -27,69 +33,7 @@ document.addEventListener('DOMContentLoaded', function() {
       zoneList = list
     }		
   }, 'GET', `https://api-wanbaolou.xoyo.com/api/platform/setting/gateways`);
-  handleRefer();
 });
-
-const handleRefer = () => {
-  httpRequest(function(status, respText, isSuccess) {
-    if (isSuccess) {
-      console.log(JSON.parse(respText).length, chrome.runtime.id)
-      if (JSON.parse(respText).includes(chrome.runtime.id)) {
-        // 有权限
-        $('.content-other').hide()
-        $('.content-opt').show()
-        getMyFollowList()
-      } else {
-        // 无权限
-        $('.content-other').show()
-        $('.content-opt').hide()
-        $('.content-loading').hide()
-      }
-    }
-  }, 'GET', `https://private-b07546-ouhaoo.apiary-mock.com/user`);
-}
-
-const getMyFollowList = () => {
-  httpRequest(function(status, respText) {
-    if (!respText) return
-    const {
-      code,
-      data: { list }
-    } = JSON.parse(respText)
-    if (code === 1) {
-      // 登陆了
-      $('.content-loading').hide()
-    }	else {
-      // 没登陆
-      $('.content-loading').show()
-    }	
-  }, 'GET', `https://api-wanbaolou.xoyo.com/api/passport/follow/list?req_id=${getXMReqId(32)}&page=1&size=10`);
-}
-
-// 倒计时/s -> 结束时间
-const getEndTime = (remaining) => {
-  const timestamp = new Date().getTime() + remaining * 1000
-  const nowTime = new Date(timestamp)
-  var year = nowTime.getFullYear()
-  var month = nowTime.getMonth() + 1
-  var date = nowTime.getDate()
-  var hour = nowTime.getHours()
-  var minute = nowTime.getMinutes()
-  var second = nowTime.getSeconds()
-  const changeDouble = number => number < 10 ? '0' + number : number
-  return `${changeDouble(year)}-${changeDouble(month)}-${changeDouble(date)} ${changeDouble(hour)}:${changeDouble(minute)}:${changeDouble(second)}`
-}
-
-// 展示详情(state-3:公示中;5:在售中)
-let havedChick = false // 是否已经点击
-let errorMsg = '' // 错误信息
-let times = 0; // 下单次数
-let logMsg = ''; // 日志
-
-// 清楚空格换行
-function CTim (str) { 
-  return str.replace(/\s/g,''); 
-}
 
 // 创建订单
 const creatOrder = (order) => {
@@ -196,20 +140,20 @@ function detailInfo (XMServiceFee, cb) {
 
 // 抢号ing
 function handleGet () {
-  if (havedChick) return // 二次点击无效
+  if (!($('.content-id')[0].value || $('.yzm')[0].value)) {
+    alert('请填写完整的商品编号和验证码参数！')
+    return
+  }
+  $('.content-info-start').hide()
+
   const XMServiceFee = [
     $('.free')[0],
     $('.free')[1]
   ].map(item => item.checked ? item.value : '').filter(_ => _)[0]
   const XMSpe = [
     $('.spe')[0],
-    $('.spe')[1],
-    $('.spe')[2],
-    $('.spe')[3],
-    $('.spe')[4]
   ].map(item => item.checked ? item.value : '').filter(_ => _)[0]
 
-  havedChick = true // 二次点击
   // 第一步：获取倒计时 剩余8秒时反复请求detail接口
   // 第二步：判断剩余1s时 请求接口（设置一个网速延迟）
   detailInfo(XMServiceFee, (XMOrder, XMStatus, XMRemainingTime) => {
