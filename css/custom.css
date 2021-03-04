@@ -42,9 +42,6 @@ body {
   border-bottom: 1px #efc7cb solid;
   color: #a29d9d;
 }
-.content-loading, content-other {
-  display: none;
-}
 .content-info-refer, .content-info-start {
   font-weight: bolder;
   border: 2px solid #efc7cb;

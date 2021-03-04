@@ -140,29 +140,37 @@ function detailInfo (XMServiceFee, cb) {
 
 // 抢号ing
 function handleGet () {
-  if (!($('.content-id')[0].value || $('.yzm')[0].value)) {
-    alert('请填写完整的商品编号和验证码参数！')
-    return
-  }
-  $('.content-info-start').hide()
-
-  const XMServiceFee = [
-    $('.free')[0],
-    $('.free')[1]
-  ].map(item => item.checked ? item.value : '').filter(_ => _)[0]
-  const XMSpe = [
-    $('.spe')[0],
-  ].map(item => item.checked ? item.value : '').filter(_ => _)[0]
-
-  // 第一步：获取倒计时 剩余8秒时反复请求detail接口
-  // 第二步：判断剩余1s时 请求接口（设置一个网速延迟）
-  detailInfo(XMServiceFee, (XMOrder, XMStatus, XMRemainingTime) => {
-    if (XMStatus !== 3) { // 非公示期直接弹二维码
-      creatOrder(XMOrder)
-      return
-    }
-    if (XMRemainingTime > 6) {
-      setTimeout(() => {
+  if ($('.content-id')[0].value && $('.yzm')[0].value) {
+    $('.content-info-start').hide()
+    const XMServiceFee = [
+      $('.free')[0],
+      $('.free')[1]
+    ].map(item => item.checked ? item.value : '').filter(_ => _)[0]
+    const XMSpe = [
+      $('.spe')[0],
+    ].map(item => item.checked ? item.value : '').filter(_ => _)[0]
+  
+    // 第一步：获取倒计时 剩余8秒时反复请求detail接口
+    // 第二步：判断剩余1s时 请求接口（设置一个网速延迟）
+    detailInfo(XMServiceFee, (XMOrder, XMStatus, XMRemainingTime) => {
+      if (XMStatus !== 3) { // 非公示期直接弹二维码
+        creatOrder(XMOrder)
+        return
+      }
+      if (XMRemainingTime > 6) {
+        setTimeout(() => {
+          var initTimer = setInterval(() => {
+            detailInfo(XMServiceFee, (XMOrder, XMStatus, XMRemainingTime) => {
+              if ((XMStatus === 3 && XMRemainingTime < 2) || (XMStatus !== 3)) {
+                clearInterval(initTimer);
+                setTimeout(() => {
+                  creatOrder(XMOrder)
+                }, XMSpe)
+              }
+            })
+          }, 100);
+        }, (XMRemainingTime - 6) * 1000)
+      } else {
         var initTimer = setInterval(() => {
           detailInfo(XMServiceFee, (XMOrder, XMStatus, XMRemainingTime) => {
             if ((XMStatus === 3 && XMRemainingTime < 2) || (XMStatus !== 3)) {
@@ -173,18 +181,10 @@ function handleGet () {
             }
           })
         }, 100);
-      }, (XMRemainingTime - 6) * 1000)
-    } else {
-      var initTimer = setInterval(() => {
-        detailInfo(XMServiceFee, (XMOrder, XMStatus, XMRemainingTime) => {
-          if ((XMStatus === 3 && XMRemainingTime < 2) || (XMStatus !== 3)) {
-            clearInterval(initTimer);
-            setTimeout(() => {
-              creatOrder(XMOrder)
-            }, XMSpe)
-          }
-        })
-      }, 100);
-    }
-  })
+      }
+    })
+  } else {
+    alert('请填写完整的商品编号和验证码参数！')
+    return
+  }
 }
