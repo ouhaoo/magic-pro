@@ -149,7 +149,7 @@ form span {
   display: block;
   height: 30px;
 }
-.hide, .mode {
+.mode {
   display: none;
 }
 .geetest_form p {

@@ -84,8 +84,12 @@ const creatOrder = (order) => {
 }
 
 // 请求详情接口
-function detailInfo (XMServiceFee, cb) {
+function detailInfo (cb) {
   const XMId = $('.content-id')[0].value
+  const XMServiceFee = [
+    $('.free')[0],
+    $('.free')[1]
+  ].map(item => item.checked ? item.value : '').filter(_ => _)[0]
   httpRequest(function(status, respText, isSuccess) {
     if (isSuccess) {
       const {
@@ -142,17 +146,9 @@ function detailInfo (XMServiceFee, cb) {
 function handleGet () {
   if ($('.content-id')[0].value && $('.yzm')[0].value) {
     $('.content-info-start').hide()
-    const XMServiceFee = [
-      $('.free')[0],
-      $('.free')[1]
-    ].map(item => item.checked ? item.value : '').filter(_ => _)[0]
-    const XMSpe = [
-      $('.spe')[0],
-    ].map(item => item.checked ? item.value : '').filter(_ => _)[0]
-  
     // 第一步：获取倒计时 剩余8秒时反复请求detail接口
     // 第二步：判断剩余1s时 请求接口（设置一个网速延迟）
-    detailInfo(XMServiceFee, (XMOrder, XMStatus, XMRemainingTime) => {
+    detailInfo((XMOrder, XMStatus, XMRemainingTime) => {
       if (XMStatus !== 3) { // 非公示期直接弹二维码
         creatOrder(XMOrder)
         return
@@ -160,8 +156,15 @@ function handleGet () {
       if (XMRemainingTime > 6) {
         setTimeout(() => {
           var initTimer = setInterval(() => {
-            detailInfo(XMServiceFee, (XMOrder, XMStatus, XMRemainingTime) => {
+            detailInfo((XMOrder, XMStatus, XMRemainingTime) => {
               if ((XMStatus === 3 && XMRemainingTime < 2) || (XMStatus !== 3)) {
+                const XMSpe = [
+                  $('.spe')[0],
+                  $('.spe')[1],
+                  $('.spe')[2],
+                  $('.spe')[3],
+                  $('.spe')[4]
+                ].map(item => item.checked ? item.value : '').filter(_ => _)[0]
                 clearInterval(initTimer);
                 setTimeout(() => {
                   creatOrder(XMOrder)
@@ -172,8 +175,15 @@ function handleGet () {
         }, (XMRemainingTime - 6) * 1000)
       } else {
         var initTimer = setInterval(() => {
-          detailInfo(XMServiceFee, (XMOrder, XMStatus, XMRemainingTime) => {
+          detailInfo((XMOrder, XMStatus, XMRemainingTime) => {
             if ((XMStatus === 3 && XMRemainingTime < 2) || (XMStatus !== 3)) {
+              const XMSpe = [
+                $('.spe')[0],
+                $('.spe')[1],
+                $('.spe')[2],
+                $('.spe')[3],
+                $('.spe')[4]
+              ].map(item => item.checked ? item.value : '').filter(_ => _)[0]
               clearInterval(initTimer);
               setTimeout(() => {
                 creatOrder(XMOrder)
