@@ -158,13 +158,14 @@ function handleGet () {
           var initTimer = setInterval(() => {
             detailInfo((XMOrder, XMStatus, XMRemainingTime) => {
               if ((XMStatus === 3 && XMRemainingTime < 2) || (XMStatus !== 3)) {
-                const XMSpe = [
-                  $('.spe')[0],
-                  $('.spe')[1],
-                  $('.spe')[2],
-                  $('.spe')[3],
-                  $('.spe')[4]
-                ].map(item => item.checked ? item.value : '').filter(_ => _)[0]
+                // const XMSpe = [
+                //   $('.spe')[0],
+                //   $('.spe')[1],
+                //   $('.spe')[2],
+                //   $('.spe')[3],
+                //   $('.spe')[4]
+                // ].map(item => item.checked ? item.value : '').filter(_ => _)[0]
+                const XMSpe = 1000;
                 clearInterval(initTimer);
                 setTimeout(() => {
                   creatOrder(XMOrder)
@@ -177,13 +178,14 @@ function handleGet () {
         var initTimer = setInterval(() => {
           detailInfo((XMOrder, XMStatus, XMRemainingTime) => {
             if ((XMStatus === 3 && XMRemainingTime < 2) || (XMStatus !== 3)) {
-              const XMSpe = [
-                $('.spe')[0],
-                $('.spe')[1],
-                $('.spe')[2],
-                $('.spe')[3],
-                $('.spe')[4]
-              ].map(item => item.checked ? item.value : '').filter(_ => _)[0]
+              // const XMSpe = [
+              //   $('.spe')[0],
+              //   $('.spe')[1],
+              //   $('.spe')[2],
+              //   $('.spe')[3],
+              //   $('.spe')[4]
+              // ].map(item => item.checked ? item.value : '').filter(_ => _)[0]
+              const XMSpe = 1000;
               clearInterval(initTimer);
               setTimeout(() => {
                 creatOrder(XMOrder)

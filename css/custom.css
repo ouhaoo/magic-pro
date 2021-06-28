@@ -5,7 +5,7 @@
 }
 body {
   background: #fff;
-  color: #689db3;
+  color: #a7a3ca;
 }
 
 .top {
@@ -21,14 +21,15 @@ body {
   font-weight: bolder;
 }
 .bottom-desc {
+  padding: 10px 20px;
   font-size: 12px;
-  line-height: 30px;
+  line-height: 20px;
 }
 
 .content {
   margin: 0 20px;
   padding: 10px 20px 10px;
-  background: rgb(248, 253, 255);
+  background: #f1f0f5;
   border: solid 1px #ccc;
   border-radius: 10px;
 }
@@ -39,13 +40,14 @@ body {
   height: 14px;
   padding: 0 5px;
   line-height: 40px;
-  border-bottom: 1px #94a86f solid;
-  color: #689db3;
+  border-bottom: 1px #a7a3ca solid;
+  color: #a7a3ca;
+  background: transparent;
 }
 .content-info-refer, .content-info-start {
   font-weight: bolder;
-  border: 2px solid #689db3;
-  color: #689db3;
+  border: 2px solid #a7a3ca;
+  color: #a7a3ca;
   outline: none;
   background-color: transparent;
   height: 25px;
@@ -56,7 +58,7 @@ body {
   margin-top: 10px;
 }
 .content-info-refer:hover, .content-info-start:hover {
-  background-color: #95b1bd;
+  background-color: #a7a3ca;
   color: #fff;
 }
 
@@ -72,7 +74,7 @@ body {
   padding: 20px;
   width: 200px;
   text-align: center;
-  background: rgba(235, 235, 235, .8);
+  background: #f1f0f5;
   border-radius: 10px;
   display: none;
 }
@@ -80,7 +82,7 @@ body {
 .content-opt {
   display: flex;
   justify-content: space-between;
-  border: #689db3 2px solid;
+  border: #a7a3ca 2px solid;
   margin: 10px 0;
   padding: 10px 0;
 }
@@ -106,9 +108,9 @@ form span {
 }
 
 .yzm {
-  color: #689db3;
+  color: #a7a3ca;
   outline: none;
-  border: 1px #689db3 solid;
+  border: 1px #a7a3ca solid;
   padding: 5px;
   width: 100%;
   height: 100px;
@@ -125,7 +127,7 @@ form span {
 }
 
 .zfb {
-  background-color: #83a6bb;
+  background-color: #c7c4e0;
   width: 115px;
   height: 115px;
   display: flex;
@@ -148,9 +150,6 @@ form span {
 .show {
   display: block;
   height: 30px;
-}
-.mode {
-  /* display: none; */
 }
 .geetest_form p {
   margin: 0 auto;
