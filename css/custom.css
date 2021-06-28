@@ -150,7 +150,7 @@ form span {
   height: 30px;
 }
 .mode {
-  display: none;
+  /* display: none; */
 }
 .geetest_form p {
   margin: 0 auto;
